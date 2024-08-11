@@ -45,5 +45,4 @@ async def main():
     bot.delete_webhook(drop_pending_updates=True)
     dp.run_polling(bot)
 
-
 asyncio.run(main())
