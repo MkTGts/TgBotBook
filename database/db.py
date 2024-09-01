@@ -5,4 +5,9 @@ user_dict = {
 }
 
 # типо база данных
-users_db = {}
+users_db = {
+    987421065: {
+        "page": 1,
+        "marks": set()
+    }
+}

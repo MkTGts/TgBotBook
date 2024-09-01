@@ -13,6 +13,7 @@ import os
 logger = logging.getLogger(__name__)
 logging.basicConfig(
     level=logging.INFO,
+    encoding='utf-8',
     filename=os.path.normpath("logs/log.logs"),
     filemode="a",
     format='[%(asctime)s] #%(levelname)-8s %(filename)s:'
@@ -25,11 +26,14 @@ async def main():
     logger.warning("Бот запущен.")
 
     # инициализация конфига
-    config: Config = load_config()
+    config: Config = load_config()  
     logger.info("Конфиг инициализирован.")
 
     # инициализация бота и диспетчера
-    bot = Bot(config.tg_bot.token)
+    bot = Bot(
+        token=config.tg_bot.token,
+        default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+    )
     dp = Dispatcher()
     logger.info("Бот и диспетчер инициализированы.")
 
@@ -42,7 +46,7 @@ async def main():
     await set_main_menu(bot)
 
     # пропуск накопившихся апдейтов и запуск полинга
-    bot.delete_webhook(drop_pending_updates=True)
-    dp.run_polling(bot)
+    await bot.delete_webhook(drop_pending_updates=True)
+    await dp.start_polling(bot)
 
 asyncio.run(main())

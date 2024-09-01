@@ -9,5 +9,5 @@ router = Router()
 @router.message()
 async def any_message(message: Message):
     await message.answer(
-        text="Это сообщение не входит в функционал бота.\nВоспользуйтесь комагдой /help"
+        text="Это сообщение не входит в функционал бота.\nВоспользуйтесь комаyдой /help"
     )
